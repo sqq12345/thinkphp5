@@ -41,7 +41,7 @@ return [
     // 指定从服务器序号
     'slave_no'        => '',
     // 是否严格检查字段是否存在
-    'fields_strict'   => true,
+    'fields_strict'   => false, //通过修改该参数，则就算数据库中没有改字段也能添加成功
     // 数据集返回类型
     'resultset_type'  => 'array',
     // 自动写入时间戳字段

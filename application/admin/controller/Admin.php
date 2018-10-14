@@ -15,8 +15,12 @@ class Admin extends Controller
     public function index()
     {
         if(request()->isAjax()){
-             $data = db("admin")->select();
-             echo json_encode($data);die;
+             $page = input("get.page");
+             $limit= input("get.limit");
+             $data = db("admin")->page("$page,$limit")->select();
+             $count = db("admin")->count();
+             $arr = ['code'=>0,'msg'=>'','count'=>$count,'data'=>$data];
+             echo json_encode($arr);die;
         }
         return view("admin/index");
     }
@@ -28,7 +32,7 @@ class Admin extends Controller
      */
     public function create()
     {
-        //
+        return view();
     }
 
     /**
@@ -39,7 +43,13 @@ class Admin extends Controller
      */
     public function save(Request $request)
     {
-        //
+        $data = input("post.");
+        $res = db("admin")->insert($data);
+        if($res) {
+            echo json_encode(array("error"=>0,"msg"=>"新增成功"));
+        }else{
+            echo json_encode(array("error"=>1,"msg"=>"新增失败"));
+        }
     }
 
     /**
@@ -62,6 +72,9 @@ class Admin extends Controller
     public function edit($id)
     {
         //
+        $id =input("id");
+        echo $id;die;
+       // return view();
     }
 
     /**
